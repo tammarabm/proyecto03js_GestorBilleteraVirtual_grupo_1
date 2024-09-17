@@ -1,11 +1,12 @@
 let billeterasVirtuales = ['PayPal', 'MercadoPago', 'Skrill'];
-let nombreUsuarios = [];
-let numeroTransacciones = [];
+let cuentas = [];
 
-function agregar(usuarios, billeteras, transacciones){
-    nombreUsuarios.push(usuarios);
-    billeterasVirtuales.includes(billeteras)
-    numeroTransacciones.push(transacciones);
+function agregarCuenta(usuarios, billeteras, transacciones){
+    cuentas.push({
+        usuario: usuarios,
+        billetera: billeteras,
+        transacciones: transacciones
+    });
 }
 
 document.getElementById("guardar").onclick = (event) => {
@@ -15,11 +16,9 @@ document.getElementById("guardar").onclick = (event) => {
     let billeteras = document.getElementById("billetera").value;
     let transacciones = Number(document.getElementById("transaccion").value);
 
-    agregar(usuarios, billeteras, transacciones);
+    agregarCuenta(usuarios, billeteras, transacciones);
 
-    console.log(usuarios);
-    console.log(billeteras);
-    console.log(transacciones);
+    console.log(cuentas);
 }
 
 
