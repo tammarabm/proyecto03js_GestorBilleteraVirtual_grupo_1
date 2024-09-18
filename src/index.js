@@ -1,18 +1,26 @@
 let billeterasVirtuales = ['PayPal', 'MercadoPago', 'Skrill'];
 let cuentas = [];
 
-function agregarCuenta(usuarios, billeteras, transacciones){
-    cuentas.push([usuarios,billeteras,transacciones]);
-    //cuentas.push(usuarios,billeteras,transacciones);
-    //console.log(cuentas);
-    mostrarCuenta(usuarios,billeteras,transacciones,cuentas);
+function agregarCuenta(usuarios, billeteras, transacciones) {
+    let cuentaExistente = cuentas.some((cuenta) => //Verifica si la cuenta ya ha sido creada
+        cuenta.usuario === usuarios && cuenta.billetera === billeteras
+    );
 
+    if(cuentaExistente){ //Si la cuenta ya existe no permite crearla
+        alert("La cuenta ya existe");
+    }else{ //Si no existe se crea y agrega al array 
+        cuentas.push({usuario: usuarios,billetera: billeteras,transacciones: transacciones});
+        mostrarLista();
+    }
 }
 
-function mostrarCuenta(usuarios,billeteras,transacciones,cuentas){
-    console.log(usuarios,billeteras,transacciones);
-    document.getElementById("resultado").innerHTML="<p>"+cuentas+"</p>";
-    console.log(cuentas);
+function mostrarLista() {
+    let resultado = document.getElementById("resultado");
+    resultado.innerHTML= '<h3>Listado de Cuentas</h3>';
+
+    cuentas.forEach((cuenta) => {
+        resultado.innerHTML += `<p>${cuenta.usuario} ${cuenta.billetera} ${cuenta.transacciones}</p>`
+    });
 }
 
 document.getElementById("guardar").onclick = (event) => {
@@ -26,5 +34,3 @@ document.getElementById("guardar").onclick = (event) => {
 
     console.log(cuentas);
 }
-
-
