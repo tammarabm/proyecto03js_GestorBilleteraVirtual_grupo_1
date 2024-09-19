@@ -24,19 +24,51 @@ function mostrarLista() {
 }
 
 function mostrarTransacciones(){
-    let resultado=document.getElementById("resultado");
-    resultado.innerHTML="<h3>Billeteras con más transacciones</h3>";
+    let resultado1=document.getElementById("resultado");
+    resultado1.innerHTML="<h3>Billeteras con más transacciones</h3>";
+
     if (cuentas.length === 0) {
         document.getElementById("resultado").innerHTML = "<p>No hay cuentas registradas.</p>";
         return;
     }
 
-    let maxTransacciones = cuentas.reduce((prev, current) => {
-        return (prev.transacciones > current.transacciones) ? prev : current;
+    //agrupar cuentas por usuario
+    const usuariosAgrupados = {};
+
+    cuentas.forEach(cuenta => {
+        if (!usuariosAgrupados[cuenta.usuario]) {
+            usuariosAgrupados[cuenta.usuario] = [];
+        }
+        usuariosAgrupados[cuenta.usuario].push(cuenta);
     });
 
-    resultado.innerHTML += `<p>Usuario con más transacciones: ${maxTransacciones.usuario}. Billetera:${maxTransacciones.billetera} (${maxTransacciones.transacciones} transacciones)</p>`;
+    const resultado = [];
+
+    for (const usuario in usuariosAgrupados) {
+        const cuentasDelUsuario = usuariosAgrupados[usuario];
+        
+        
+        let maxTransaccion = cuentasDelUsuario[0]; // Asumimos que el primer objeto es el máximo
+
+        for (let i = 1; i < cuentasDelUsuario.length; i++) {
+            if (cuentasDelUsuario[i].transacciones > maxTransaccion.transacciones) {
+                maxTransaccion = cuentasDelUsuario[i]; // Actualizamos el máximo
+            }
+        }
+        /**const maxTransaccion = cuentasDelUsuario.reduce((prev, current) => {
+            return (prev.transacciones > current.transacciones) ? prev : current;
+        });*/
+        const maxCount = cuentasDelUsuario.filter(cuenta => cuenta.transacciones === maxTransaccion.transacciones);
+        
+        resultado.push(maxCount[0]); // Solo se añade la primera cuenta que cumpla la condición
+    }
+
+    resultado.forEach(cuenta => {
+        resultado1.innerHTML += `<p>Usuario: ${cuenta.usuario}, Billetera: ${cuenta.billetera}, Transacciones: ${cuenta.transacciones}</p>`;
+    });
+
 }
+
 
 document.getElementById("guardar").onclick = (event) => {
     event.preventDefault(); // Evita que el formulario se envíe y recargue la página
@@ -52,4 +84,8 @@ document.getElementById("guardar").onclick = (event) => {
 document.getElementById("maxTransacciones").onclick=(event)=>{
     event.preventDefault();
     mostrarTransacciones();
+}
+document.getElementById("lista").onclick=(event)=>{
+    event.preventDefault();
+    mostrarLista();
 }
