@@ -1,16 +1,14 @@
-.contenedor{
-    display: flex;
+
+.input{
+    display: grid;
+    background-color:rgb(22, 36, 24);
+    color: aqua;
     grid-template-columns: 1fr 2fr 1fr;
     grid-gap: 10px;
 }
 
-.item{
-    background-color:black;
-    color: aqua;
-    padding: 10px;
-    margin: 10px;
+body{
+    background-image: url(https://star.global/_next/image/?url=https%3A%2F%2Fcms.star.global%2Fwp-content%2Fuploads%2F2022%2F08%2FFrom-digital-wallet-to-super-app.jpg&w=3840&q=75);
+    background-color: #cccccc;
 }
 
-body{
-    background-color: bisque;
-}
