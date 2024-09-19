@@ -23,6 +23,21 @@ function mostrarLista() {
     });
 }
 
+function mostrarTransacciones(){
+    let resultado=document.getElementById("resultado");
+    resultado.innerHTML="<h3>Billeteras con más transacciones</h3>";
+    if (cuentas.length === 0) {
+        document.getElementById("resultado").innerHTML = "<p>No hay cuentas registradas.</p>";
+        return;
+    }
+
+    let maxTransacciones = cuentas.reduce((prev, current) => {
+        return (prev.transacciones > current.transacciones) ? prev : current;
+    });
+
+    resultado.innerHTML += `<p>Usuario con más transacciones: ${maxTransacciones.usuario}. Billetera:${maxTransacciones.billetera} (${maxTransacciones.transacciones} transacciones)</p>`;
+}
+
 document.getElementById("guardar").onclick = (event) => {
     event.preventDefault(); // Evita que el formulario se envíe y recargue la página
 
@@ -33,4 +48,8 @@ document.getElementById("guardar").onclick = (event) => {
     agregarCuenta(usuarios, billeteras, transacciones);
 
     console.log(cuentas);
+}
+document.getElementById("maxTransacciones").onclick=(event)=>{
+    event.preventDefault();
+    mostrarTransacciones();
 }
