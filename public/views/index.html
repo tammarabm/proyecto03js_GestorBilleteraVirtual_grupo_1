@@ -11,16 +11,20 @@
         <div class = "input"> 
         <input type="text" id="usuario" placeholder="Nombre de usuario">
         <select name="select" id="billetera">
-            <option value="PayPal">PayPal</option>
+            <option value="" disabled selected>Selecciona una billetera</option>
             <option value="MercadoPago">MercadoPago</option>
+            <option value="Modo">Modo</option>
+            <option value="Uala">Uala</option>
+            <option value="NaranjaX">NaranjaX</option>
+            <option value="PayPal">PayPal</option>
             <option value="Skrill">Skrill</option>
         </select>
-        <input type="number" id="transaccion" placeholder="Número de Transacciones">
+        <input type="number" id="transaccion" placeholder="Numero de Transacciones">
         <button id="guardar">Guardar</button>
-        <button id="lista">Lista</button>   
         <button id="maxTransacciones">Billeteras con más transacciones</button>         
     </form>    
-    <p id="resultado"></p>
+    <p id="lista"></p>
+    <p id="listaTransacciones"></p>
     <script type="module" src="../../src/index.js"></script>
 </body>
 </html>

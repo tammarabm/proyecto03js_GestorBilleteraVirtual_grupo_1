@@ -1,34 +1,35 @@
-let billeterasVirtuales = ['PayPal', 'MercadoPago', 'Skrill'];
+let billeterasVirtuales = ['MercadoPago', 'Modo', 'Uala', 'NaranjaX', 'PayPal', 'Skrill'];
 let cuentas = [];
 
 function agregarCuenta(usuarios, billeteras, transacciones) {
-    let cuentaExistente = cuentas.some((cuenta) => //Verifica si la cuenta ya ha sido creada
+    let cuentaExistente = cuentas.find((cuenta) => //Verifica si la cuenta ya ha sido creada
         cuenta.usuario === usuarios && cuenta.billetera === billeteras
     );
 
-    if(cuentaExistente){ //Si la cuenta ya existe no permite crearla
-        alert("La cuenta ya existe");
+    if(cuentaExistente){ //Si la cuenta ya existe suma las transacciones
+        cuentaExistente.transacciones += transacciones;
     }else{ //Si no existe se crea y agrega al array 
         cuentas.push({usuario: usuarios,billetera: billeteras,transacciones: transacciones});
-        mostrarLista();
     }
+
+    mostrarLista();
 }
 
 function mostrarLista() {
-    let resultado = document.getElementById("resultado");
-    resultado.innerHTML= '<h3>Listado de Cuentas</h3>';
+    let lista = document.getElementById("lista");
+    lista.innerHTML= '<h3>Listado de Cuentas</h3>';
 
     cuentas.forEach((cuenta) => {
-        resultado.innerHTML += `<p>${cuenta.usuario} ${cuenta.billetera} ${cuenta.transacciones}</p>`
+        lista.innerHTML += `<p>${cuenta.usuario} ${cuenta.billetera} ${cuenta.transacciones}</p>`
     });
 }
 
 function mostrarTransacciones(){
-    let resultado1=document.getElementById("resultado");
-    resultado1.innerHTML="<h3>Billeteras con más transacciones</h3>";
+    let listaTransacciones=document.getElementById("listaTransacciones");
+    listaTransacciones.innerHTML="<h3>Billeteras con más transacciones</h3>";
 
     if (cuentas.length === 0) {
-        document.getElementById("resultado").innerHTML = "<p>No hay cuentas registradas.</p>";
+        document.getElementById("listaTransacciones").innerHTML = "<p>No hay cuentas registradas.</p>";
         return;
     }
 
@@ -47,7 +48,6 @@ function mostrarTransacciones(){
     for (const usuario in usuariosAgrupados) {
         const cuentasDelUsuario = usuariosAgrupados[usuario];
         
-        
         let maxTransaccion = cuentasDelUsuario[0]; // Asumimos que el primer objeto es el máximo
 
         for (let i = 1; i < cuentasDelUsuario.length; i++) {
@@ -55,20 +55,17 @@ function mostrarTransacciones(){
                 maxTransaccion = cuentasDelUsuario[i]; // Actualizamos el máximo
             }
         }
-        /**const maxTransaccion = cuentasDelUsuario.reduce((prev, current) => {
-            return (prev.transacciones > current.transacciones) ? prev : current;
-        });*/
+
         const maxCount = cuentasDelUsuario.filter(cuenta => cuenta.transacciones === maxTransaccion.transacciones);
         
         resultado.push(maxCount[0]); // Solo se añade la primera cuenta que cumpla la condición
     }
 
     resultado.forEach(cuenta => {
-        resultado1.innerHTML += `<p>Usuario: ${cuenta.usuario}, Billetera: ${cuenta.billetera}, Transacciones: ${cuenta.transacciones}</p>`;
+        listaTransacciones.innerHTML += `<p>Usuario: ${cuenta.usuario}, Billetera: ${cuenta.billetera}, Transacciones: ${cuenta.transacciones}</p>`;
     });
 
 }
-
 
 document.getElementById("guardar").onclick = (event) => {
     event.preventDefault(); // Evita que el formulario se envíe y recargue la página
@@ -81,11 +78,9 @@ document.getElementById("guardar").onclick = (event) => {
 
     console.log(cuentas);
 }
+
 document.getElementById("maxTransacciones").onclick=(event)=>{
     event.preventDefault();
+
     mostrarTransacciones();
-}
-document.getElementById("lista").onclick=(event)=>{
-    event.preventDefault();
-    mostrarLista();
 }
