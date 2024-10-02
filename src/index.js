@@ -17,7 +17,7 @@ function agregarCuenta(usuarios, billeteras, transacciones) {
 
 function mostrarLista() {
     let lista = document.getElementById("lista");
-    lista.innerHTML= '<h3>Listado de Cuentas</h3>';
+    lista.innerHTML= '<h3>LISTADO DE CUENTAS: </h3>';
 
     cuentas.forEach((cuenta) => {
         lista.innerHTML += `<p>${cuenta.usuario} ${cuenta.billetera} ${cuenta.transacciones}</p>`
@@ -26,7 +26,7 @@ function mostrarLista() {
 
 function mostrarTransacciones(){
     let listaTransacciones=document.getElementById("listaTransacciones");
-    listaTransacciones.innerHTML="<h3>Billeteras con más transacciones</h3>";
+    listaTransacciones.innerHTML="<h3>BILLETERAS CON MÁS TRANSACCIONES: </h3>";
 
     if (cuentas.length === 0) {
         document.getElementById("listaTransacciones").innerHTML = "<p>No hay cuentas registradas.</p>";
