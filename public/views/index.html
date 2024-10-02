@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Transacciones en Billeteras Virtuales</title>
     <link rel="stylesheet" href="/public/css/index.css">
 </head>
+
 <body>
-    <form>
-        <div class = "input"> 
-        <input type="text" id="usuario" placeholder="Nombre de usuario">
-        <select name="select" id="billetera">
-            <option value="" disabled selected>Selecciona una billetera</option>
-            <option value="MercadoPago">MercadoPago</option>
-            <option value="Modo">Modo</option>
-            <option value="Uala">Uala</option>
-            <option value="NaranjaX">NaranjaX</option>
-            <option value="PayPal">PayPal</option>
-            <option value="Skrill">Skrill</option>
-        </select>
-        <input type="number" id="transaccion" placeholder="Numero de Transacciones">
-        <button id="guardar">Guardar</button>
-        <button id="maxTransacciones">Billeteras con más transacciones</button>         
-    </form>    
-    <p id="lista"></p>
-    <p id="listaTransacciones"></p>
+    <div class="contenedor">
+        <form>
+            <input type="text" id="usuario" placeholder="Nombre de usuario">
+            <select name="select" id="billetera">
+                <option value="" disabled selected>Selecciona una billetera</option>
+                <option value="MercadoPago">MercadoPago</option>
+                <option value="Modo">Modo</option>
+                <option value="Uala">Uala</option>
+                <option value="NaranjaX">NaranjaX</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Skrill">Skrill</option>
+            </select>
+            <input type="number" id="transaccion" placeholder="Numero de Transacciones">
+            <button id="guardar">Guardar</button>
+            <button id="maxTransacciones">Billeteras con más transacciones</button>
+        </form>
+        <div class="listas">
+            <p id="lista"></p>
+            <p id="listaTransacciones"></p>
+        </div>
+    </div>
+  
     <script type="module" src="/src/index.js"></script>
 </body>
+
 </html>
